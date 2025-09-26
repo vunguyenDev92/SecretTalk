@@ -26,7 +26,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final docRef = firestore.collection('users').doc(user.uid);
     final doc = await docRef.get();
     if (!doc.exists) {
-      // Nếu chưa có document user, tự động tạo mới với thông tin cơ bản từ Firebase Auth
       final newUser = UserModel(
         uid: user.uid,
         email: user.email ?? '',
@@ -55,7 +54,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final docRef = firestore.collection('users').doc(user.uid);
     final doc = await docRef.get();
     if (!doc.exists) {
-      // Nếu chưa có document user, tự động tạo mới với thông tin cơ bản từ Firebase Auth
       final newUser = UserModel(
         uid: user.uid,
         email: user.email ?? '',

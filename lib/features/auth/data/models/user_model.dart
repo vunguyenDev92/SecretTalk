@@ -1,7 +1,6 @@
 import '../../domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
-  String? get username => super.displayName;
   const UserModel({
     required String uid,
     required String email,
@@ -13,7 +12,7 @@ class UserModel extends UserEntity {
   }) : super(
          uid: uid,
          email: email,
-         displayName: username,
+         username: username,
          avatarUrl: avatarUrl,
          fcmToken: fcmToken,
          lastSeen: lastSeen,
