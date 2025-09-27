@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_chat/features/auth/presentation/screens/profile_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:country_picker/country_picker.dart';
 import 'login_screen.dart';
@@ -201,7 +202,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     if (state is AuthAuthenticated) {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => const ProfileScreen(),
+                        ),
                         (route) => false,
                       );
                     } else if (state is AuthError) {
@@ -228,7 +231,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             birth == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Vui lòng nhập đầy đủ thông tin!'),
+                              content: Text(
+                                'Please enter complete information!',
+                              ),
                             ),
                           );
                           return;
