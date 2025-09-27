@@ -9,6 +9,8 @@ class UserModel extends UserEntity {
     String? fcmToken,
     int? lastSeen,
     String? status,
+    String? phoneNumber,
+    String? birthDate,
   }) : super(
          uid: uid,
          email: email,
@@ -17,6 +19,8 @@ class UserModel extends UserEntity {
          fcmToken: fcmToken,
          lastSeen: lastSeen,
          status: status,
+         phoneNumber: phoneNumber,
+         birthDate: birthDate,
        );
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +32,8 @@ class UserModel extends UserEntity {
       fcmToken: json['fcmToken'] as String?,
       lastSeen: json['lastSeen'] as int?,
       status: json['status'] as String?,
+      phoneNumber: json['phoneNumber'] as String?,
+      birthDate: json['birthDate'] as String?,
     );
   }
 
@@ -40,6 +46,8 @@ class UserModel extends UserEntity {
       'fcmToken': fcmToken,
       'lastSeen': lastSeen,
       'status': status,
+      'phoneNumber': phoneNumber,
+      'birthDate': birthDate,
     };
   }
 }

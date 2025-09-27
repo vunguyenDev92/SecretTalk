@@ -9,6 +9,8 @@ class UserEntity extends Equatable {
   final String? fcmToken;
   final int? lastSeen;
   final String? status;
+  final String? phoneNumber;
+  final String? birthDate;
 
   const UserEntity({
     required this.uid,
@@ -18,6 +20,8 @@ class UserEntity extends Equatable {
     this.fcmToken,
     this.lastSeen,
     this.status,
+    this.phoneNumber,
+    this.birthDate,
   });
 
   @override
@@ -29,5 +33,7 @@ class UserEntity extends Equatable {
     fcmToken,
     lastSeen,
     status,
+    phoneNumber,
+    birthDate,
   ];
 }

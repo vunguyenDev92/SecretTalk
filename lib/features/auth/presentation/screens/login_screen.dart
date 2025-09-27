@@ -4,6 +4,11 @@ import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../state/auth_state.dart';
 import 'profile_screen.dart';
+import 'register_screen.dart';
+import '../widgets/auth_text_field.dart';
+import '../widgets/auth_header.dart';
+import '../widgets/auth_divider.dart';
+import '../widgets/social_login_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,6 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool obscurePassword = true;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,46 +71,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 32),
-                        const Text(
-                          'Sign in to your Account',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Enter your email and password to log in',
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        const AuthHeader(
+                          title: 'Sign in to your Account',
+                          subtitle: 'Enter your email and password to log in',
                         ),
                         const SizedBox(height: 32),
-                        TextField(
+                        AuthTextField(
+                          label: 'Email',
                           controller: emailController,
-                          decoration: const InputDecoration(
-                            labelText: 'Email',
-                            border: OutlineInputBorder(),
-                          ),
+                          hintText: 'Email',
                           keyboardType: TextInputType.emailAddress,
                         ),
                         const SizedBox(height: 16),
-                        TextField(
+                        AuthTextField(
+                          label: 'Password',
                           controller: passwordController,
+                          hintText: 'Password',
                           obscureText: obscurePassword,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            border: const OutlineInputBorder(),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                obscurePassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  obscurePassword = !obscurePassword;
-                                });
-                              },
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                             ),
+                            onPressed: () {
+                              setState(() {
+                                obscurePassword = !obscurePassword;
+                              });
+                            },
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -140,42 +140,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 24),
-                        Row(
-                          children: [
-                            Expanded(child: Divider()),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: Text('Or'),
-                            ),
-                            Expanded(child: Divider()),
-                          ],
-                        ),
+                        const AuthDivider(),
                         const SizedBox(height: 24),
-                        SizedBox(
-                          width: double.infinity,
-                          child: OutlinedButton.icon(
-                            onPressed: () {},
-                            icon: Image.asset('assets/google.png', height: 24),
-                            label: const Text('Continue with Google'),
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                          ),
+                        SocialLoginButton(
+                          assetPath: 'assets/google.png',
+                          text: 'Continue with Google',
+                          onPressed: () {},
                         ),
                         const SizedBox(height: 16),
-                        SizedBox(
-                          width: double.infinity,
-                          child: OutlinedButton.icon(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/facebook.png',
-                              height: 24,
-                            ),
-                            label: const Text('Continue with Facebook'),
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                          ),
+                        SocialLoginButton(
+                          assetPath: 'assets/facebook.png',
+                          text: 'Continue with Facebook',
+                          onPressed: () {},
                         ),
                         const Spacer(),
                         Center(
@@ -184,7 +160,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               const Text("Don't have an account? "),
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const RegisterScreen(),
+                                    ),
+                                  );
+                                },
                                 child: const Text(
                                   'Sign Up',
                                   style: TextStyle(
