@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../state/auth_state.dart';
-import 'profile_screen.dart';
+import '../../../chat/presentation/screens/home_screen.dart';
 import 'register_screen.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/auth_header.dart';
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthAuthenticated) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const ProfileScreen()),
+              MaterialPageRoute(builder: (_) => const HomeScreen()),
             );
           } else if (state is AuthError) {
             ScaffoldMessenger.of(

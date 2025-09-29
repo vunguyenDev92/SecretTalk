@@ -7,6 +7,10 @@ import 'package:flutter_app_chat/features/auth/data/repositories/auth_repository
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/screens/splash_screen.dart';
+import 'features/auth/domain/usecases/sign_in_usecase.dart';
+import 'features/auth/domain/usecases/sign_up_usecase.dart';
+import 'features/auth/domain/usecases/sign_out_usecase.dart';
+import 'features/auth/domain/usecases/get_current_user_usecase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +30,19 @@ class MyApp extends StatelessWidget {
       ),
     );
 
+    // Usecases
+    final signInUseCase = SignInUseCase(authRepository);
+    final signUpUseCase = SignUpUseCase(authRepository);
+    final signOutUseCase = SignOutUseCase(authRepository);
+    final getCurrentUserUseCase = GetCurrentUserUseCase(authRepository);
+
     return BlocProvider<AuthBloc>(
-      create: (_) => AuthBloc(authRepository),
+      create: (_) => AuthBloc(
+        signInUseCase: signInUseCase,
+        signUpUseCase: signUpUseCase,
+        signOutUseCase: signOutUseCase,
+        getCurrentUserUseCase: getCurrentUserUseCase,
+      ),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
