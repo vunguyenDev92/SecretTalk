@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         cancelText: 'Cancel',
       ),
     );
+    if (!mounted) return;
     if (confirmed == true) {
       context.read<AuthBloc>().add(AuthSignOutRequested());
     }
@@ -48,10 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
-        drawer: AppDrawer(
-          onSignOut: _handleSignOut,
-          userName: 'Andrew Jones', // TODO: truyền user động
-        ),
+        drawer: AppDrawer(onSignOut: _handleSignOut, userName: 'Andrew Jones'),
         appBar: AppBar(
           title: const Text('Secret Chat'),
           centerTitle: true,
