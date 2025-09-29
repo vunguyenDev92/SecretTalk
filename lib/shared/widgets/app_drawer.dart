@@ -1,8 +1,10 @@
+import 'chat_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
   final VoidCallback? onSignOut;
-  const AppDrawer({super.key, this.onSignOut});
+  final String userName;
+  const AppDrawer({super.key, this.onSignOut, required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +19,15 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 28,
-                    backgroundImage: AssetImage('assets/avatar.png'),
+                    backgroundImage: AssetImage(kDefaultAvatarAsset),
                   ),
                   const SizedBox(width: 12),
-                  const Text(
-                    'Andrew Jones',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  Text(
+                    userName,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
                   ),
                 ],
               ),

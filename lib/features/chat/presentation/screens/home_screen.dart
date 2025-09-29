@@ -48,14 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
-        drawer: AppDrawer(onSignOut: _handleSignOut),
+        drawer: AppDrawer(
+          onSignOut: _handleSignOut,
+          userName: 'Andrew Jones', // TODO: truyền user động
+        ),
         appBar: AppBar(
           title: const Text('Secret Chat'),
           centerTitle: true,
           leading: Builder(
             builder: (context) => IconButton(
               icon: CircleAvatar(
-                backgroundImage: AssetImage('assets/avatar.png'),
+                backgroundImage: AssetImage(kDefaultAvatarAsset),
                 radius: 16,
               ),
               onPressed: () => Scaffold.of(context).openDrawer(),

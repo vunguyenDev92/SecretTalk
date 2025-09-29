@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const String kDefaultAvatarAsset = 'assets/avatar.png';
+
 class ChatListTile extends StatelessWidget {
   final String name;
   final String lastMessage;
@@ -16,7 +18,7 @@ class ChatListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(backgroundImage: AssetImage('assets/avatar.png')),
+      leading: CircleAvatar(backgroundImage: AssetImage(kDefaultAvatarAsset)),
       title: Text(name),
       subtitle: Text(lastMessage),
       trailing: Text(time),
