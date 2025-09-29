@@ -5,7 +5,7 @@ import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../state/auth_state.dart';
 import 'login_screen.dart';
-import 'profile_screen.dart';
+import '../../../chat/presentation/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
             if (!mounted) return;
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const ProfileScreen()),
+              MaterialPageRoute(builder: (_) => const HomeScreen()),
             );
           });
         } else if (state is AuthUnauthenticated || state is AuthError) {
