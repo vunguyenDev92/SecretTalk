@@ -103,7 +103,16 @@ class _OtpInputScreenState extends State<OtpInputScreen> {
             context,
           ).showSnackBar(SnackBar(content: Text('$message')));
         }
-        if (reason == 'expired') {}
+        if (reason == 'expired') {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('OTP expired. Please request a new code.'),
+              ),
+            );
+          }
+          _startResendCooldown();
+        }
       }
     } catch (e) {
       if (mounted)
