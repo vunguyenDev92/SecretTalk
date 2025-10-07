@@ -8,7 +8,6 @@ import '../bloc/auth_bloc.dart';
 import '../models/otp_args.dart';
 import 'otp_request_screen.dart';
 import '../state/auth_state.dart';
-import '../../domain/entities/user_entity.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/auth_header.dart';
 import '../widgets/auth_divider.dart';
