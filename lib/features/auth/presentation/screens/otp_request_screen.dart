@@ -10,7 +10,7 @@ import '../bloc/auth_event.dart';
 
 class OtpRequestScreen extends StatefulWidget {
   final OtpArgs? initialArgs;
-  const OtpRequestScreen({Key? key, this.initialArgs}) : super(key: key);
+  const OtpRequestScreen({super.key, this.initialArgs});
 
   @override
   State<OtpRequestScreen> createState() => _OtpRequestScreenState();

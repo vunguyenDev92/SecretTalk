@@ -7,7 +7,7 @@ import '../models/otp_args.dart';
 class OtpInputScreen extends StatefulWidget {
   final void Function(String otp)? onConfirm;
 
-  const OtpInputScreen({Key? key, this.onConfirm}) : super(key: key);
+  const OtpInputScreen({super.key, this.onConfirm});
 
   @override
   State<OtpInputScreen> createState() => _OtpInputScreenState();
@@ -84,43 +84,46 @@ class _OtpInputScreenState extends State<OtpInputScreen> {
 
   Future<void> _confirmOtp(String otp) async {
     if (_isConfirming) return;
-    setState(() => _isConfirming = true);
+    setState(() {
+      _isConfirming = true;
+    });
     final email = _readEmailFromArgs(context);
     try {
       final res = await _otpService.verifyOtp(email, otp);
       if (res['ok'] == true) {
         if (widget.onConfirm != null) widget.onConfirm!(otp);
-        if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('OTP verified')));
-        }
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('OTP verified')));
       } else {
         final reason = res['reason'] ?? 'unknown';
         final message = res['message'] ?? 'Verification failed';
-        if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('$message')));
-        }
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('$message')));
         if (reason == 'expired') {
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('OTP expired. Please request a new code.'),
-              ),
-            );
-          }
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('OTP expired. Please request a new code.'),
+            ),
+          );
           _startResendCooldown();
         }
       }
     } catch (e) {
-      if (mounted)
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error: $e')));
     } finally {
-      if (mounted) setState(() => _isConfirming = false);
+      if (mounted) {
+        setState(() {
+          _isConfirming = false;
+        });
+      }
     }
   }
 
@@ -194,8 +197,9 @@ class _OtpInputScreenState extends State<OtpInputScreen> {
                           }
                         } else {
                           // user deleted the char -> move focus back
-                          if (index - 1 >= 0)
+                          if (index - 1 >= 0) {
                             _focusNodes[index - 1].requestFocus();
+                          }
                         }
                       },
                       onTap: () async {
@@ -242,21 +246,28 @@ class _OtpInputScreenState extends State<OtpInputScreen> {
                     : () async {
                         final email = _readEmailFromArgs(context);
                         if (email.isEmpty) return;
-                        setState(() => _isResending = true);
+                        setState(() {
+                          _isResending = true;
+                        });
+                        final messenger = ScaffoldMessenger.of(context);
                         try {
                           await _otpService.sendOtp(email);
-                          if (mounted)
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('OTP resent')),
-                            );
+                          if (!mounted) return;
+                          messenger.showSnackBar(
+                            const SnackBar(content: Text('OTP resent')),
+                          );
                           _startResendCooldown(30);
                         } catch (e) {
-                          if (mounted)
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Resend failed: $e')),
-                            );
+                          if (!mounted) return;
+                          messenger.showSnackBar(
+                            SnackBar(content: Text('Resend failed: $e')),
+                          );
                         } finally {
-                          if (mounted) setState(() => _isResending = false);
+                          if (mounted) {
+                            setState(() {
+                              _isResending = false;
+                            });
+                          }
                         }
                       },
                 child: Text(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class OtpSuccessScreen extends StatelessWidget {
   final VoidCallback? onContinue;
-  const OtpSuccessScreen({Key? key, this.onContinue}) : super(key: key);
+  const OtpSuccessScreen({super.key, this.onContinue});
 
   @override
   Widget build(BuildContext context) {
