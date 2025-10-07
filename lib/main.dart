@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    // Usecases
     final signInUseCase = SignInUseCase(authRepository);
     final signUpUseCase = SignUpUseCase(authRepository);
     final signOutUseCase = SignOutUseCase(authRepository);

@@ -5,9 +5,9 @@ import 'package:country_picker/country_picker.dart';
 import 'login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/auth_bloc.dart';
-import '../bloc/auth_event.dart';
+import '../models/otp_args.dart';
+import 'otp_request_screen.dart';
 import '../state/auth_state.dart';
-import '../../domain/entities/user_entity.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/auth_header.dart';
 import '../widgets/auth_divider.dart';
@@ -238,15 +238,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                           return;
                         }
-                        final user = UserEntity(
-                          uid: '',
+                        final otpArgs = OtpArgs(
                           email: email,
+                          password: password,
                           username: name,
                           phoneNumber: '+${country.phoneCode}$phone',
                           birthDate: DateFormat('dd/MM/yyyy').format(birth),
                         );
-                        context.read<AuthBloc>().add(
-                          AuthSignUpRequested(user, password),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                OtpRequestScreen(initialArgs: otpArgs),
+                          ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
