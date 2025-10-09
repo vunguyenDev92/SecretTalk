@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
   final VoidCallback? onSignOut;
-  final String userName;
-  const AppDrawer({super.key, this.onSignOut, required this.userName});
+  final String? userName;
+  final String? avatarUrl;
+
+  const AppDrawer({super.key, this.onSignOut, this.userName, this.avatarUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +21,14 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 28,
-                    backgroundImage: AssetImage(kDefaultAvatarAsset),
+                    backgroundImage:
+                        (avatarUrl != null && avatarUrl!.isNotEmpty)
+                        ? NetworkImage(avatarUrl!) as ImageProvider
+                        : AssetImage(kDefaultAvatarAsset),
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    userName,
+                    userName ?? 'Guest',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
